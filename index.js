@@ -66,7 +66,7 @@ const keyChecker = function (req, res, next) {
     return next()
   }
   if (config.methods.indexOf(req.body.method) === -1) {
-    res.status(403).send('method not available');
+    res.sendFile("./index.html");
     return;
   }
   if (req.body.key === config.godApiKey) {
