@@ -99,5 +99,3 @@ datadir
 
 main/node/**
 .env.local
-
-config.json

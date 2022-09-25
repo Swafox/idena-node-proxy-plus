@@ -1,34 +1,35 @@
-# Idena node proxy
+# Setup
 
-Install all dependencies
-`npm i`
-
-Start the local server
-`npm run dev`
-
-## Run as Docker
-
-You can build your own docker file or get image from `idena/node-proxy:latest` or by tag `idena/node-proxy:v1.1.2`
-
-### Docker compose example
-
+## 1. Modify config.json
+Lines 23 & 24, put IDENA URL and Key (just like in .env)
+Example:
 ```
-version: "3.8"
-services:
-  proxy-test:
-    image: idena/node-proxy:v1.1.2
-    restart: always
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./config.json:/home/node/app/config.json
-      - ./access.log:/home/node/app/access.log
-    environment:
-      NODE_ENV: "production"
-
+IDENA_URL="http://localhost:9009"
+IDENA_KEY="123"
 ```
 
-## Configuration
+## 2. Modify keys.json
+Simply put keys in json format:
+`["key1", "key2", "keyN"]`
+
+## optional: bootstrap script
+Execute the following command if you currently do NOT have a node running:
+```
+chmod +x script.sh && ./script.sh
+```
+
+# Usage
+
+## Testing keys
+Run `npm test` to validate keys
+
+## Running
+Run `npm start` to start both servers
+
+## Stopping
+Run `npm stop all` to stop both servers
+
+# Further configuration
 
 To configure proxy you can use `config.json` file or set custom path with `CONFIG_PATH` environmental variable.
 
@@ -109,39 +110,4 @@ Default configuration:
         "contract_iterateMap"
     ]
 }
-```
-
-### Remote keys
-You can use `remoteKeys` parameter to update the list of api keys from a specific URL automatically.
-Example:
-```
-    "remoteKeys": {
-        "enabled": true,
-        "url": "http://localhost:1234/my-api-keys",
-        "authorization": null,
-        "interval": 300000
-    },
-```
-
-The node will call the `url` at the specific intervals defined in the `interval` parameter in milliseconds.
-The URL has to provide json response with array of keys as follows:
-```
-["key1", "key2", "keyN"]
-```
-Use `authorization` parameter with authorization header if needed.
-
-
-## Old .env configuration
-
-You can use these environmental variables to configure proxy. Better to use `config.json` file instead.
-```
-PORT=<proxy port>
-IDENA_URL=<idena node url>
-IDENA_KEY=<idena node api key>
-AVAILABLE_KEYS=[<available static api keys here>]
-LOGS_OUTPUT=<file|stdout>
-GOD_API_KEY=<unlimited api key>
-REMOTE_KEYS_ENABLED=<0|1>
-REMOTE_KEYS_URL=<url to fetch remote api keys (replaces static keys)>
-REMOTE_KEYS_AUTH=<auth header for fetching query>
 ```
