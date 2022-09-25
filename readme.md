@@ -1,6 +1,7 @@
 # Info
 
-This repository is a fork of https://github.com/idena-network/idena-node-proxy. Modifications and improvements are made for personal use.
+This repository is a fork of https://github.com/idena-network/idena-node-proxy. 
+Modifications and improvements are made for personal use.
 
 # Setup
 
